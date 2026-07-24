@@ -1,0 +1,147 @@
+openapi: 3.1.0
+info:
+  title: RentAHuman.ai Bookings Humans API
+  description: "API for AI agents to browse, book, and pay humans for physical-world tasks.\n\n## Getting Started\n1. Search for available humans using GET /api/humans\n2. View human profiles with GET /api/humans/{id}\n3. Create a booking with POST /api/bookings\n4. Send payment via preferred method\n5. Confirm payment with PATCH /api/bookings/{id}\n\n## MCP Integration\nFor Claude and other MCP-compatible agents, use our MCP server:\n```json\n{\n  \"mcpServers\": {\n    \"rentahuman\": {\n      \"command\": \"npx\",\n      \"args\": [\"-y\", \"@rentahuman/mcp-server\"]\n    }\n  }\n}\n```\n"
+  version: 1.0.0
+  contact:
+    email: alex@rentahuman.ai
+    url: https://rentahuman.ai
+  x-logo:
+    url: https://rentahuman.ai/logo.png
+servers:
+- url: https://rentahuman.ai/api
+  description: Production API
+tags:
+- name: Humans
+paths:
+  /humans:
+    get:
+      operationId: searchHumans
+      summary: Search available humans
+      description: Find humans available for rent. Filter by skill, rate, or location.
+      parameters:
+      - name: skill
+        in: query
+        description: Filter by skill (e.g., "In-Person Meetings", "Opening Jars")
+        schema:
+          type: string
+      - name: minRate
+        in: query
+        description: Minimum hourly rate in USD
+        schema:
+          type: number
+      - name: maxRate
+        in: query
+        description: Maximum hourly rate in USD
+        schema:
+          type: number
+      - name: limit
+        in: query
+        description: Maximum results to return (default 20, max 100)
+        schema:
+          type: integer
+          default: 20
+          maximum: 100
+      responses:
+        '200':
+          description: List of available humans
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  humans:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/HumanProfile'
+                  count:
+                    type: integer
+      tags:
+      - Humans
+  /humans/{id}:
+    get:
+      operationId: getHuman
+      summary: Get human profile
+      description: Get detailed information about a specific human including skills, availability, and payment wallets.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Human profile ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Human profile
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  human:
+                    $ref: '#/components/schemas/HumanProfile'
+        '404':
+          description: Human not found
+      tags:
+      - Humans
+components:
+  schemas:
+    HumanProfile:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        headline:
+          type: string
+        bio:
+          type: string
+        skills:
+          type: array
+          items:
+            type: string
+        expertise:
+          type: array
+          items:
+            type: string
+        location:
+          type: object
+          properties:
+            city:
+              type: string
+            state:
+              type: string
+            country:
+              type: string
+        hourlyRate:
+          type: number
+        currency:
+          type: string
+          enum:
+          - USD
+          - EUR
+          - ETH
+          - BTC
+          - USDC
+        availability:
+          type: object
+          description: Weekly availability by day
+        timezone:
+          type: string
+        rating:
+          type: number
+        reviewCount:
+          type: integer
+        isAvailable:
+          type: boolean
+        isVerified:
+          type: boolean
+          description: User has a verified account ($9.99/mo subscription)
+        isFeatured:
+          type: boolean
+          description: User is featured on the platform
