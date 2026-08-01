@@ -1,0 +1,28 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for RentAHuman.ai API
+  version: 1.0.0
+extends: openapi/rentahuman-openapi-original.yml
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-enriched: '2026-07-20'
+      x-mcp-server: https://rentahuman.ai/api/mcp
+      x-well-known-security-txt: https://rentahuman.ai/.well-known/security.txt
+  - target: $.components
+    update:
+      securitySchemes:
+        ApiKeyHeader:
+          type: apiKey
+          in: header
+          name: X-API-Key
+          description: >-
+            API key (format rah_live_...). Also accepted as
+            'Authorization: Bearer rah_live_...'. Documented in the developer
+            docs; not present in the provider's published spec.
+  - target: $.paths['/humans'].get
+    update:
+      x-rate-limit-class: public-browse (100/min per IP) / authenticated-browse (600/min)
+  - target: $.paths['/bookings'].post
+    update:
+      x-webhook-events: [booking.created, booking.status_changed]

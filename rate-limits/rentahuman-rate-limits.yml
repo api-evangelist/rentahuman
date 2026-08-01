@@ -1,0 +1,46 @@
+generated: '2026-07-20'
+method: searched
+source: https://rentahuman.ai/api-docs
+headers:
+  - X-RateLimit-Limit
+  - X-RateLimit-Remaining
+  - X-RateLimit-Reset
+response_status: 429
+limits:
+  - class: public-browse
+    limit_count: 100
+    window: 1m
+    keyed_by: ip
+  - class: authenticated-browse
+    limit_count: 600
+    window: 1m
+    keyed_by: ip
+  - class: conversation-polling
+    limit_count: 600
+    window: 1m
+    keyed_by: ip
+  - class: general-reads
+    limit_count: 600
+    window: 1m
+    keyed_by: ip
+  - class: general-writes
+    limit_count: 300
+    window: 1m
+    keyed_by: ip
+  - class: api-key-bounty-writes
+    limit_count: 10000
+    window: 24h
+    keyed_by: api-key
+  - class: api-key-conversations
+    limit_count: 50000
+    window: 24h
+    keyed_by: api-key
+  - class: login
+    limit_count: 10
+    window: 1m
+    keyed_by: ip
+  - class: signup
+    limit_count: 20
+    window: 1h
+    keyed_by: ip
+notes: Higher automated tiers available upon admin approval (contact support).

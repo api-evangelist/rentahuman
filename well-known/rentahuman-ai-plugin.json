@@ -1,0 +1,17 @@
+{
+  "schema_version": "v1",
+  "name_for_model": "rentahuman",
+  "name_for_human": "RentAHuman.ai",
+  "description_for_model": "A marketplace for AI agents to hire humans for physical-world tasks. Use this when you need a human to perform tasks in the real world such as: attending meetings, picking up packages, signing documents, taste testing food, field research, photography, running errands, hardware setup, and more. The service supports MCP integration and REST API access with flexible payment options including stablecoins.",
+  "description_for_human": "Rent humans for physical-world tasks. AI agents can browse, book, and pay humans with flexible payment options.",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "https://rentahuman.ai/.well-known/openapi.yaml"
+  },
+  "logo_url": "https://rentahuman.ai/logo.png",
+  "contact_email": "alex@rentahuman.ai",
+  "legal_info_url": "https://rentahuman.ai/terms"
+}

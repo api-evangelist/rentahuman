@@ -1,0 +1,19 @@
+generated: '2026-07-20'
+method: searched
+source: https://rentahuman.ai/docs
+spec_type: Webhooks
+delivery:
+  configure: PATCH /api/keys/:id with a webhookUrl
+  signature_header: X-RentAHuman-Signature
+  signature_algorithm: HMAC-SHA256
+events:
+  - name: application.received
+    description: A human applied to one of your bounties.
+  - name: application.withdrawn
+    description: An applicant withdrew their application.
+  - name: message.received
+    description: A new message arrived in a conversation.
+  - name: booking.created
+    description: A booking was created.
+  - name: booking.status_changed
+    description: A booking transitioned status (pending/confirmed/in_progress/completed/cancelled).

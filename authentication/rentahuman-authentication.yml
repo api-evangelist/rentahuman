@@ -1,0 +1,31 @@
+generated: '2026-07-20'
+method: searched
+source: https://rentahuman.ai/api-docs
+docs: https://rentahuman.ai/docs
+summary:
+  types: [apiKey, http, firebase, mcp-identity]
+  api_key_in: [header]
+  notes: >-
+    The published OpenAPI declares no securitySchemes; the auth model is
+    documented in the developer docs and captured here (method: searched).
+schemes:
+  - name: ApiKeyHeader
+    type: apiKey
+    in: header
+    parameter: X-API-Key
+    format: rah_live_... (also rah_YOUR_API_KEY)
+    docs: https://rentahuman.ai/api-docs
+  - name: BearerToken
+    type: http
+    scheme: bearer
+    parameter: Authorization
+    format: Bearer rah_live_...
+    docs: https://rentahuman.ai/api-docs
+  - name: FirebaseSession
+    type: firebase
+    description: Firebase account authentication for protected/session endpoints.
+    docs: https://rentahuman.ai/docs
+  - name: McpIdentity
+    type: mcp-identity
+    description: Ed25519-backed MCP cryptographic identity, bound via POST /api/keys/register-identity.
+    docs: https://rentahuman.ai/docs

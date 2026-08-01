@@ -1,0 +1,17 @@
+generated: '2026-07-20'
+method: searched
+source: https://rentahuman.ai/docs
+versioning:
+  scheme: mixed
+  current: v1.0.0
+  notes: >-
+    Core /api paths are unversioned; the QA subsystem is versioned under
+    /api/v1/qa/*. OpenAPI info.version is 1.0.0.
+deprecation:
+  policy_url: null
+  sunset_header: false
+  notes: No deprecation policy or Sunset/Deprecation header support is documented.
+status_page: null
+sla:
+  url: null
+deprecated_operations: []

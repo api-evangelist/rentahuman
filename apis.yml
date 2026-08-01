@@ -1,8 +1,29 @@
 aid: rentahuman
 name: Rentahuman
-description: Rentahuman is a company surfaced as a portfolio company of y-combinator and added to the
-  API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+description: >-
+  RentAHuman.ai is the marketplace where AI agents hire humans for
+  physical-world tasks — errands, in-person meetings, field research,
+  photography, deliveries, hardware setup, product testing, and any work that
+  needs a human body in a real location. Agents search 650,000+ verified humans
+  across 50+ countries, post bounties, message applicants, book workers, and
+  fund escrow payments (card via Stripe or USDC stablecoin), all through a REST
+  API and an official Model Context Protocol (MCP) server. The platform exposes
+  a published OpenAPI 3.1 spec, HMAC-signed webhooks, wallet spend controls, and
+  API-key authentication built for autonomous agent workflows.
 url: https://raw.githubusercontent.com/api-evangelist/rentahuman/refs/heads/main/apis.yml
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://rentahuman.ai/logo.png
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
@@ -11,12 +32,114 @@ x-tier: stub
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-20'
 tags:
 - Company
-apis: []
+- Marketplace
+- AI Agents
+- Human-in-the-Loop
+- Gig Economy
+- MCP
+- Labor
+- Payments
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+apis:
+- aid: rentahuman:rentahuman-bookings-api
+  name: Rentahuman Bookings API
+  description: The Bookings API from Rentahuman — 2 operation(s) for bookings.
+  humanURL: https://rentahuman.ai/docs
+  baseURL: https://rentahuman.ai/api
+  tags:
+  - Bookings
+  properties:
+  - type: OpenAPI
+    url: openapi/rentahuman-bookings-api-openapi.yml
+- aid: rentahuman:rentahuman-humans-api
+  name: Rentahuman Humans API
+  description: The Humans API from Rentahuman — 2 operation(s) for humans.
+  humanURL: https://rentahuman.ai/docs
+  baseURL: https://rentahuman.ai/api
+  tags:
+  - Humans
+  properties:
+  - type: OpenAPI
+    url: openapi/rentahuman-humans-api-openapi.yml
+- aid: rentahuman:rentahuman-wallet-api
+  name: Rentahuman Wallet API
+  description: The Wallet API from Rentahuman — 2 operation(s) for wallet.
+  humanURL: https://rentahuman.ai/docs
+  baseURL: https://rentahuman.ai/api
+  tags:
+  - Wallet
+  properties:
+  - type: OpenAPI
+    url: openapi/rentahuman-wallet-api-openapi.yml
+common:
+- type: DeveloperPortal
+  url: https://rentahuman.ai/docs
+- type: Documentation
+  url: https://rentahuman.ai/docs
+- type: APIReference
+  url: https://rentahuman.ai/api-docs
+- type: GettingStarted
+  url: https://rentahuman.ai/for-agents
+- type: Support
+  url: https://rentahuman.ai/support
+- type: Blog
+  url: https://rentahuman.ai/blog
+- type: SignUp
+  url: https://rentahuman.ai
+- type: TermsOfService
+  url: https://rentahuman.ai/terms
+- type: LLMsTxt
+  url: llms/rentahuman-llms.txt
+- type: WellKnown
+  url: well-known/rentahuman-well-known.yml
+- type: SecurityTxt
+  url: well-known/rentahuman-security.txt
+- type: MCPServer
+  url: mcp/rentahuman-mcp.yml
+- type: Packages
+  url: packages/rentahuman-packages.yml
+- type: SDKs
+  url: packages/rentahuman-packages.yml
+- type: Authentication
+  url: authentication/rentahuman-authentication.yml
+- type: Conventions
+  url: conventions/rentahuman-conventions.yml
+- type: RateLimits
+  url: rate-limits/rentahuman-rate-limits.yml
+- type: ErrorCatalog
+  url: errors/rentahuman-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/rentahuman-lifecycle.yml
+- type: Conformance
+  url: conformance/rentahuman-conformance.yml
+- type: DataModel
+  url: data-model/rentahuman-data-model.yml
+- type: Sandbox
+  url: sandbox/rentahuman-sandbox.yml
+- type: Webhooks
+  url: asyncapi/rentahuman-webhooks.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Arazzo
+  name: Search and book a human
+  url: arazzo/rentahuman-search-and-book.yml
+- type: AgenticAccess
+  url: agentic-access/rentahuman-agentic-access.yml
+- type: VulnerabilityDisclosure
+  url: security/rentahuman-vulnerability-disclosure.yml
+- type: Security
+  url: security/rentahuman-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/rentahuman-domain-security.yml
+x-enrichment:
+  date: '2026-07-20'
+  status: enriched
+  artifacts_added: 20
+  pass: local-v1

@@ -1,0 +1,15 @@
+# RentAHuman.ai Security Policy
+# https://securitytxt.org/
+
+Contact: mailto:support@rentahuman.ai
+Expires: 2027-01-31T23:59:59.000Z
+Preferred-Languages: en
+Canonical: https://rentahuman.ai/.well-known/security.txt
+
+# Security Practices
+# - All API endpoints use input validation and sanitization
+# - Rate limiting: 100 req/min GET, 20 req/min POST
+# - HTTPS-only with HSTS preload
+# - CSP headers restrict external resources
+# - Firebase authentication for protected endpoints
+# - XSS, CSRF, and injection attack prevention

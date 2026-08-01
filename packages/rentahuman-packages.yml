@@ -1,0 +1,19 @@
+generated: '2026-07-20'
+method: searched
+source: https://registry.npmjs.org/rentahuman-mcp
+packages:
+  - language: javascript
+    registry: npm
+    name: rentahuman-mcp
+    version: 1.16.0
+    license: MIT
+    description: MCP server for AI agents to browse and book humans on rentahuman.ai
+    url: https://www.npmjs.com/package/rentahuman-mcp
+    install: npx -y rentahuman-mcp
+    official: true
+    homepage: https://rentahuman.ai
+    author: RentAHuman <engineering@rentahuman.ai>
+    bin: rentahuman-mcp
+    notes: >-
+      First-party Model Context Protocol server / client library. Wraps the
+      REST API; configured via the RENTAHUMAN_API_KEY environment variable.

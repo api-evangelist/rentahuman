@@ -1,0 +1,8 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/rentahuman-openapi-original.yml
+workflows:
+  - file: rentahuman-search-and-book.yml
+    workflowId: searchAndBookHuman
+    title: Search and book a human
+    summary: Search by skill, inspect the profile, create a booking, confirm it, and read status.

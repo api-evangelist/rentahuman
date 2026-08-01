@@ -1,0 +1,32 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/rentahuman-openapi-original.yml
+standards:
+  - id: openapi-3.1
+    conforms: true
+    evidence: Published OpenAPI 3.1.0 document at /.well-known/openapi.yaml
+  - id: mcp
+    conforms: true
+    evidence: Official MCP server (rentahuman-mcp) + HTTP MCP endpoint /api/mcp
+  - id: api-key-auth
+    conforms: true
+    evidence: X-API-Key / Authorization Bearer documented
+  - id: oauth2
+    conforms: false
+  - id: oidc
+    conforms: false
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: Errors use a custom {success,error} envelope, not application/problem+json
+  - id: rfc9116-security-txt
+    conforms: true
+    evidence: /.well-known/security.txt present with Contact and Expires
+  - id: webhooks-hmac
+    conforms: true
+    evidence: HMAC-SHA256 signed webhooks via X-RentAHuman-Signature
+  - id: rate-limit-headers
+    conforms: true
+    evidence: X-RateLimit-Limit / -Remaining / -Reset on all responses
+  - id: pagination
+    conforms: true
+    evidence: limit query parameter with count response field

@@ -1,0 +1,39 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/rentahuman-openapi-original.yml
+entities:
+  - name: HumanProfile
+    id_field: id
+    key_fields: [name, headline, skills, expertise, location, hourlyRate, currency, rating, isVerified]
+    notes: Verified accounts are a $9.99/mo subscription (isVerified).
+  - name: Booking
+    id_field: id
+    key_fields: [humanId, agentId, agentName, agentType, taskTitle, taskCategory, startTime, estimatedHours, totalAmount, currency, paymentStatus, status]
+  - name: WalletControls
+    id_field: null
+    key_fields: [lowBalanceThresholdCents, spendingCapPerBountyCents, spendingCapRolling24hCents, autoTopupEnabled, autoTopupFloorCents, autoTopupTargetCents, autoTopupMaxPerDayCents]
+  - name: WalletReport
+    id_field: profileId
+    key_fields: [rangeStart, rangeEnd, currency, totals, byBounty, byHuman]
+relationships:
+  - from: Booking
+    to: HumanProfile
+    type: belongs_to
+    via: humanId
+  - from: WalletReport
+    to: HumanProfile
+    type: belongs_to
+    via: profileId
+  - from: WalletReport
+    to: HumanProfile
+    type: has_many
+    via: byHuman[].humanId
+  - from: WalletReport
+    to: Bounty
+    type: has_many
+    via: byBounty[].bountyId
+enums:
+  booking_status: [pending, confirmed, in_progress, completed, cancelled]
+  payment_status: [pending, paid, refunded]
+  agent_type: [clawdbot, moltbot, openclaw, other]
+  currency: [USD, EUR, ETH, BTC, USDC]

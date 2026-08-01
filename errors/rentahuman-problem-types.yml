@@ -1,0 +1,31 @@
+generated: '2026-07-20'
+method: searched
+source: https://rentahuman.ai/api-docs
+format: custom-envelope
+envelope: '{ "success": false, "error": "message", "code": "validation" }'
+notes: >-
+  Errors are returned as a custom JSON envelope (not RFC 9457
+  application/problem+json). The `code` field appears on validation errors.
+problems:
+  - status: 400
+    title: Invalid or missing parameters
+    remediation: Check required fields and value constraints; validation errors include a code field.
+    source_operation: openapi/rentahuman-openapi-original.yml#updateWalletControls
+  - status: 401
+    title: Missing or invalid authentication
+    remediation: Provide a valid API key (X-API-Key or Authorization Bearer) or Firebase session.
+  - status: 403
+    title: Authenticated but not allowed
+    remediation: The caller lacks permission for this resource or action.
+  - status: 404
+    title: Resource not found
+    source_operation: openapi/rentahuman-openapi-original.yml#getHuman
+  - status: 409
+    title: Conflict
+    remediation: The resource state prevents the action (e.g., booking slot unavailable).
+  - status: 429
+    title: Rate limited
+    remediation: Back off using X-RateLimit-Reset; request a higher tier from support.
+  - status: 500
+    title: Server error
+    remediation: Retry with backoff; contact support if persistent.

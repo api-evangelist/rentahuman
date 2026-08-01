@@ -1,0 +1,40 @@
+generated: '2026-07-20'
+method: searched
+status: published
+source: https://rentahuman.ai/docs
+server:
+  name: rentahuman
+  description: >-
+    Official RentAHuman MCP server. AI agents search for humans, post bounties,
+    manage conversations, fund escrow, and hire people for physical-world tasks.
+  transports:
+    - transport: stdio
+      command: npx -y rentahuman-mcp
+      env:
+        - RENTAHUMAN_API_KEY
+    - transport: http
+      url: https://rentahuman.ai/api/mcp
+      discovery: GET https://rentahuman.ai/api/mcp
+  package: rentahuman-mcp
+  auth: API key (RENTAHUMAN_API_KEY, format rah_live_... / rah_YOUR_API_KEY)
+  clients:
+    - Claude Desktop
+    - Cursor
+    - Windsurf
+    - custom MCP agents
+tools:
+  - name: search_humans
+    description: Discover available talent by skill, location, availability, and rate.
+    source_operation: openapi/rentahuman-openapi-original.yml#searchHumans
+  - name: start_conversation
+    description: Initiate messaging with a human.
+  - name: create_bounty
+    description: Post a task with description, price, and applicant review (supports dryRun=true).
+  - name: rent_human
+    description: One-step rental of a specific human.
+  - name: accept_application
+    description: Hire an applicant.
+  - name: confirm_delivery
+    description: Mark submitted work complete.
+  - name: release_payment
+    description: Disburse escrowed funds to the human.

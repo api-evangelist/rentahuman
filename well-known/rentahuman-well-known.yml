@@ -1,0 +1,19 @@
+generated: '2026-07-20'
+method: searched
+host: https://rentahuman.ai
+documents:
+  - path: /.well-known/security.txt
+    status: 200
+    file: rentahuman-security.txt
+  - path: /.well-known/ai-plugin.json
+    status: 200
+    file: rentahuman-ai-plugin.json
+  - path: /.well-known/openapi.yaml
+    status: 200
+    note: Referenced by ai-plugin.json and llms.txt; harvested to openapi/rentahuman-openapi-original.yml
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404

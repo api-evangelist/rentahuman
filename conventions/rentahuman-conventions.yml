@@ -1,0 +1,38 @@
+generated: '2026-07-20'
+method: searched
+source: https://rentahuman.ai/api-docs
+authentication:
+  style: api-key
+  headers: [X-API-Key, Authorization]
+  ref: authentication/rentahuman-authentication.yml
+idempotency:
+  supported: false
+  notes: >-
+    No idempotency-key header or parameter is documented. create_bounty
+    supports a dryRun=true flag for safe validation, which is a preview/test
+    affordance rather than an idempotency contract.
+pagination:
+  style: limit-based
+  request_params: [limit]
+  defaults: { limit: 20, max: 100 }
+  response_fields: [count]
+  notes: List endpoints accept a limit query parameter and return a count.
+versioning:
+  scheme: mixed
+  notes: >-
+    Core paths are unversioned under /api; the QA subsystem is versioned under
+    /api/v1/qa/*. OpenAPI info.version is 1.0.0.
+request_tracing:
+  documented: false
+error_envelope:
+  shape: '{ "success": false, "error": "message" }'
+  problem_json: false
+  ref: errors/rentahuman-problem-types.yml
+rate_limit_signaling:
+  headers: [X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset]
+  ref: rate-limits/rentahuman-rate-limits.yml
+webhooks:
+  configure: PATCH /api/keys/:id with webhookUrl
+  signature_header: X-RentAHuman-Signature
+  signature_algorithm: HMAC-SHA256
+  ref: asyncapi/rentahuman-webhooks.yml

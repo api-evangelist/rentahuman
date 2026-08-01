@@ -1,0 +1,18 @@
+{
+  "provider": "rentahuman",
+  "sources": [
+    "rentahuman-bookings-api-openapi.yml",
+    "rentahuman-humans-api-openapi.yml",
+    "rentahuman-wallet-api-openapi.yml"
+  ],
+  "outputs": [
+    "rentahuman-bookings-api-openapi.yml",
+    "rentahuman-humans-api-openapi.yml",
+    "rentahuman-wallet-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

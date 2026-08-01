@@ -1,0 +1,19 @@
+generated: '2026-07-20'
+method: searched
+source: https://rentahuman.ai/for-agents
+modes:
+  - name: dry-run
+    mechanism: dryRun=true
+    applies_to: [create_bounty]
+    description: >-
+      Validate a bounty/task request without posting or funding it. Documented
+      in the agent quick-start: test search_humans, then post with create_bounty
+      using dryRun=true before funding real work.
+key_prefixes:
+  live: rah_live_
+  placeholder: rah_YOUR_API_KEY
+test_values: []
+notes: >-
+  No published test card numbers or magic test identifiers. Escrow funding uses
+  Stripe Checkout and stablecoin (USDC) transfers; the safe-preview path for
+  agents is dryRun. Never invent test values.

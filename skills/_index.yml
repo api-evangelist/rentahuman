@@ -1,0 +1,12 @@
+generated: '2026-07-20'
+method: generated
+source: openapi/rentahuman-openapi-original.yml
+skills:
+  - file: rentahuman-find-and-book-a-human.md
+    name: Find and book a human for a physical-world task
+    api: openapi/rentahuman-openapi-original.yml
+    operations: [searchHumans, getHuman, createBooking, updateBooking, getBooking]
+  - file: rentahuman-manage-agent-spend.md
+    name: Monitor and control agent wallet spend
+    api: openapi/rentahuman-openapi-original.yml
+    operations: [getWalletReport, getWalletControls, updateWalletControls]
