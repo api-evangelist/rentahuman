@@ -79,6 +79,8 @@ apis:
   - type: OpenAPI
     url: openapi/rentahuman-wallet-api-openapi.yml
 common:
+- type: Overlay
+  url: overlays/rentahuman-openapi-overlay.yaml
 - type: DeveloperPortal
   url: https://rentahuman.ai/docs
 - type: Documentation
