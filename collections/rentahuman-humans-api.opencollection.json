@@ -1,0 +1,74 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RentAHuman.ai Bookings Humans API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Humans",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search available humans",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://rentahuman.ai/api/humans",
+            "params": [
+              {
+                "name": "skill",
+                "value": "",
+                "type": "query",
+                "description": "Filter by skill (e.g., \"In-Person Meetings\", \"Opening Jars\")"
+              },
+              {
+                "name": "minRate",
+                "value": "",
+                "type": "query",
+                "description": "Minimum hourly rate in USD"
+              },
+              {
+                "name": "maxRate",
+                "value": "",
+                "type": "query",
+                "description": "Maximum hourly rate in USD"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum results to return (default 20, max 100)"
+              }
+            ]
+          },
+          "docs": "Find humans available for rent. Filter by skill, rate, or location."
+        },
+        {
+          "info": {
+            "name": "Get human profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://rentahuman.ai/api/humans/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Human profile ID"
+              }
+            ]
+          },
+          "docs": "Get detailed information about a specific human including skills, availability, and payment wallets."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

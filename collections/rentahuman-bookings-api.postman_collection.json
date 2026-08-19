@@ -1,0 +1,415 @@
+{
+  "item": [
+    {
+      "id": "f55bdc97-a39a-4488-9a19-cfe83d9bd4c7",
+      "name": "Bookings",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "88c5e2fc-b3d3-4bc5-8d18-b8115385c817",
+          "name": "List bookings",
+          "request": {
+            "name": "List bookings",
+            "description": {
+              "content": "Get bookings filtered by human ID, agent ID, or status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bookings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "humanId",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "agentId",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2daeadca-8c6a-44a2-95e9-553a545df579",
+              "name": "List of bookings",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bookings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "humanId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "agentId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"bookings\": [\n    {\n      \"id\": \"string\",\n      \"humanId\": \"string\",\n      \"agentId\": \"string\",\n      \"agentName\": \"string\",\n      \"agentType\": \"string\",\n      \"taskTitle\": \"string\",\n      \"taskDescription\": \"string\",\n      \"taskCategory\": \"string\",\n      \"startTime\": \"1959-02-28T03:05:26.293Z\",\n      \"endTime\": \"1949-09-20T20:01:33.667Z\",\n      \"estimatedHours\": 1873.1266768590526,\n      \"totalAmount\": 3084.7010772868366,\n      \"currency\": \"string\",\n      \"paymentStatus\": \"refunded\",\n      \"status\": \"in_progress\"\n    },\n    {\n      \"id\": \"string\",\n      \"humanId\": \"string\",\n      \"agentId\": \"string\",\n      \"agentName\": \"string\",\n      \"agentType\": \"string\",\n      \"taskTitle\": \"string\",\n      \"taskDescription\": \"string\",\n      \"taskCategory\": \"string\",\n      \"startTime\": \"2005-10-11T09:39:27.915Z\",\n      \"endTime\": \"2022-01-25T08:22:40.602Z\",\n      \"estimatedHours\": 2217.0886950626755,\n      \"totalAmount\": 9618.416702806055,\n      \"currency\": \"string\",\n      \"paymentStatus\": \"paid\",\n      \"status\": \"pending\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d016781d-1b52-4540-83bc-09525bfe683d",
+          "name": "Book a human",
+          "request": {
+            "name": "Book a human",
+            "description": {
+              "content": "Create a booking for a human to perform a physical-world task.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bookings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"humanId\": \"<string>\",\n  \"agentId\": \"<string>\",\n  \"agentType\": \"<string>\",\n  \"taskTitle\": \"<string>\",\n  \"taskDescription\": \"<string>\",\n  \"startTime\": \"<dateTime>\",\n  \"estimatedHours\": \"<number>\",\n  \"agentName\": \"<string>\",\n  \"taskCategory\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e41ffe14-fd6e-492f-8014-dca71d122535",
+              "name": "Booking created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bookings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"humanId\": \"<string>\",\n  \"agentId\": \"<string>\",\n  \"agentType\": \"<string>\",\n  \"taskTitle\": \"<string>\",\n  \"taskDescription\": \"<string>\",\n  \"startTime\": \"<dateTime>\",\n  \"estimatedHours\": \"<number>\",\n  \"agentName\": \"<string>\",\n  \"taskCategory\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"booking\": {\n    \"id\": \"string\",\n    \"humanId\": \"string\",\n    \"agentId\": \"string\",\n    \"agentName\": \"string\",\n    \"agentType\": \"string\",\n    \"taskTitle\": \"string\",\n    \"taskDescription\": \"string\",\n    \"taskCategory\": \"string\",\n    \"startTime\": \"1969-11-28T20:07:52.905Z\",\n    \"endTime\": \"1981-04-05T08:58:01.178Z\",\n    \"estimatedHours\": 6380.771460724759,\n    \"totalAmount\": 881.7487317782092,\n    \"currency\": \"string\",\n    \"paymentStatus\": \"pending\",\n    \"status\": \"confirmed\"\n  },\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6384e7c6-ad6e-4fbc-969e-e35bfdb40339",
+          "name": "Get booking status",
+          "request": {
+            "name": "Get booking status",
+            "description": {},
+            "url": {
+              "path": [
+                "bookings",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2d44b7c3-f1cf-491a-93c0-091b54bcb3f1",
+              "name": "Booking details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bookings",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"booking\": {\n    \"id\": \"string\",\n    \"humanId\": \"string\",\n    \"agentId\": \"string\",\n    \"agentName\": \"string\",\n    \"agentType\": \"string\",\n    \"taskTitle\": \"string\",\n    \"taskDescription\": \"string\",\n    \"taskCategory\": \"string\",\n    \"startTime\": \"1971-11-07T02:40:07.069Z\",\n    \"endTime\": \"1966-11-27T14:47:43.507Z\",\n    \"estimatedHours\": 7064.286176560685,\n    \"totalAmount\": 4724.073672392124,\n    \"currency\": \"string\",\n    \"paymentStatus\": \"pending\",\n    \"status\": \"pending\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f7e32d04-32c6-4ea7-8983-84b4f1a5f289",
+          "name": "Update booking",
+          "request": {
+            "name": "Update booking",
+            "description": {
+              "content": "Update booking status or confirm payment with transaction hash.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bookings",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"<string>\",\n  \"paymentTxHash\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4e328094-ab57-4c52-a92c-8400e9fb9825",
+              "name": "Booking updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bookings",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"<string>\",\n  \"paymentTxHash\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://rentahuman.ai/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "0bf3a38f-2a76-4398-9a14-263c0435579b",
+    "name": "RentAHuman.ai Bookings API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API for AI agents to browse, book, and pay humans for physical-world tasks.\n\n## Getting Started\n1. Search for available humans using GET /api/humans\n2. View human profiles with GET /api/humans/{id}\n3. Create a booking with POST /api/bookings\n4. Send payment via preferred method\n5. Confirm payment with PATCH /api/bookings/{id}\n\n## MCP Integration\nFor Claude and other MCP-compatible agents, use our MCP server:\n```json\n{\n  \"mcpServers\": {\n    \"rentahuman\": {\n      \"command\": \"npx\",\n      \"args\": [\"-y\", \"@rentahuman/mcp-server\"]\n    }\n  }\n}\n```\n\n\nContact Support:\n Email: alex@rentahuman.ai",
+      "type": "text/plain"
+    }
+  }
+}

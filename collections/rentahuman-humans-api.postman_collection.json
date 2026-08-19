@@ -1,0 +1,270 @@
+{
+  "item": [
+    {
+      "id": "41611920-40b1-4bea-abb6-c436ef1f2925",
+      "name": "Humans",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "71cc926e-866f-4dcc-b2a6-9138126ede35",
+          "name": "Search available humans",
+          "request": {
+            "name": "Search available humans",
+            "description": {
+              "content": "Find humans available for rent. Filter by skill, rate, or location.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "humans"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "skill",
+                  "value": "<string>",
+                  "description": "Filter by skill (e.g., \"In-Person Meetings\", \"Opening Jars\")"
+                },
+                {
+                  "disabled": false,
+                  "key": "minRate",
+                  "value": "<number>",
+                  "description": "Minimum hourly rate in USD"
+                },
+                {
+                  "disabled": false,
+                  "key": "maxRate",
+                  "value": "<number>",
+                  "description": "Maximum hourly rate in USD"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20",
+                  "description": "Maximum results to return (default 20, max 100)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "216579fc-afaa-44e6-8026-d8a11332ee83",
+              "name": "List of available humans",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "humans"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skill",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "minRate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "maxRate",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"humans\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"headline\": \"string\",\n      \"bio\": \"string\",\n      \"skills\": [\n        \"string\",\n        \"string\"\n      ],\n      \"expertise\": [\n        \"string\",\n        \"string\"\n      ],\n      \"location\": {\n        \"city\": \"string\",\n        \"state\": \"string\",\n        \"country\": \"string\"\n      },\n      \"hourlyRate\": 7164.9359790324115,\n      \"currency\": \"BTC\",\n      \"availability\": {},\n      \"timezone\": \"string\",\n      \"rating\": 1862.3296003533885,\n      \"reviewCount\": 7449,\n      \"isAvailable\": true,\n      \"isVerified\": false,\n      \"isFeatured\": true\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"headline\": \"string\",\n      \"bio\": \"string\",\n      \"skills\": [\n        \"string\",\n        \"string\"\n      ],\n      \"expertise\": [\n        \"string\",\n        \"string\"\n      ],\n      \"location\": {\n        \"city\": \"string\",\n        \"state\": \"string\",\n        \"country\": \"string\"\n      },\n      \"hourlyRate\": 653.5432381286232,\n      \"currency\": \"BTC\",\n      \"availability\": {},\n      \"timezone\": \"string\",\n      \"rating\": 8587.455270842236,\n      \"reviewCount\": 2475,\n      \"isAvailable\": false,\n      \"isVerified\": true,\n      \"isFeatured\": true\n    }\n  ],\n  \"count\": 2485\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "74e133b3-b876-4472-b140-0b74d86dc5e4",
+          "name": "Get human profile",
+          "request": {
+            "name": "Get human profile",
+            "description": {
+              "content": "Get detailed information about a specific human including skills, availability, and payment wallets.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "humans",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Human profile ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "17c0997d-6138-4ba2-9aa1-911d5b5c9328",
+              "name": "Human profile",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "humans",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Human profile ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"human\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"headline\": \"string\",\n    \"bio\": \"string\",\n    \"skills\": [\n      \"string\",\n      \"string\"\n    ],\n    \"expertise\": [\n      \"string\",\n      \"string\"\n    ],\n    \"location\": {\n      \"city\": \"string\",\n      \"state\": \"string\",\n      \"country\": \"string\"\n    },\n    \"hourlyRate\": 8588.856809922649,\n    \"currency\": \"ETH\",\n    \"availability\": {},\n    \"timezone\": \"string\",\n    \"rating\": 2724.5832096454546,\n    \"reviewCount\": 3223,\n    \"isAvailable\": true,\n    \"isVerified\": false,\n    \"isFeatured\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3db96e68-ea7c-430c-a30f-befe6fd807dc",
+              "name": "Human not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "humans",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Human profile ID"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://rentahuman.ai/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "be2b4e02-43c0-4c93-be01-f4f32b430013",
+    "name": "RentAHuman.ai Bookings Humans API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API for AI agents to browse, book, and pay humans for physical-world tasks.\n\n## Getting Started\n1. Search for available humans using GET /api/humans\n2. View human profiles with GET /api/humans/{id}\n3. Create a booking with POST /api/bookings\n4. Send payment via preferred method\n5. Confirm payment with PATCH /api/bookings/{id}\n\n## MCP Integration\nFor Claude and other MCP-compatible agents, use our MCP server:\n```json\n{\n  \"mcpServers\": {\n    \"rentahuman\": {\n      \"command\": \"npx\",\n      \"args\": [\"-y\", \"@rentahuman/mcp-server\"]\n    }\n  }\n}\n```\n\n\nContact Support:\n Email: alex@rentahuman.ai",
+      "type": "text/plain"
+    }
+  }
+}

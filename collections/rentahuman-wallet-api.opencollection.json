@@ -1,0 +1,69 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RentAHuman.ai Bookings Wallet API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Wallet",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get wallet spend report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://rentahuman.ai/api/wallet/report",
+            "params": [
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Range start as an ISO 8601 date or epoch-milliseconds string. Defaults to 30 days ago."
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "Range end as an ISO 8601 date or epoch-milliseconds string. Defaults to now."
+              }
+            ]
+          },
+          "docs": "Wallet spend report over a time range. Returns totals plus per-bounty and per-human breakdowns. Auth via API key or Firebase session; the wallet is resolved from the caller."
+        },
+        {
+          "info": {
+            "name": "Get wallet controls",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://rentahuman.ai/api/wallet/controls"
+          },
+          "docs": "Read wallet controls (low-balance alert threshold, spending caps, auto-topup config) for the authenticated caller."
+        },
+        {
+          "info": {
+            "name": "Update wallet controls",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://rentahuman.ai/api/wallet/controls",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update wallet controls. Send only the fields to change; pass null to clear a threshold or cap. When autoTopupEnabled is true, requires target > floor > 0 and maxPerDay >= target - floor."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

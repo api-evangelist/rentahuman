@@ -1,0 +1,335 @@
+{
+  "item": [
+    {
+      "id": "9bab3c1f-73ba-4507-9d37-ae7bf637096e",
+      "name": "Wallet",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f877bb79-fe0a-4853-ab15-b6616d74dc17",
+          "name": "Get wallet spend report",
+          "request": {
+            "name": "Get wallet spend report",
+            "description": {
+              "content": "Wallet spend report over a time range. Returns totals plus per-bounty and per-human breakdowns. Auth via API key or Firebase session; the wallet is resolved from the caller.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wallet",
+                "report"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<string>",
+                  "description": "Range start as an ISO 8601 date or epoch-milliseconds string. Defaults to 30 days ago."
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<string>",
+                  "description": "Range end as an ISO 8601 date or epoch-milliseconds string. Defaults to now."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f7d6ac15-9b17-426b-b9e5-f05a37d235b2",
+              "name": "Wallet spend report",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wallet",
+                    "report"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"report\": {\n    \"profileId\": \"string\",\n    \"rangeStart\": \"1977-07-29T10:26:50.103Z\",\n    \"rangeEnd\": \"1983-10-25T15:46:10.909Z\",\n    \"currency\": \"usd\",\n    \"totals\": {\n      \"paid\": 1377,\n      \"inEscrow\": 4905,\n      \"pendingRelease\": 4025,\n      \"settled\": 2734,\n      \"refunded\": 5336\n    },\n    \"byBounty\": [\n      {\n        \"bountyId\": \"string\",\n        \"funded\": 487,\n        \"settled\": 2424,\n        \"refunded\": 7423,\n        \"escrowCount\": 2022\n      },\n      {\n        \"bountyId\": \"string\",\n        \"funded\": 7749,\n        \"settled\": 7301,\n        \"refunded\": 1780,\n        \"escrowCount\": 3465\n      }\n    ],\n    \"byHuman\": [\n      {\n        \"humanId\": \"string\",\n        \"humanName\": \"string\",\n        \"paid\": 7477,\n        \"escrowCount\": 6491\n      },\n      {\n        \"humanId\": \"string\",\n        \"humanName\": \"string\",\n        \"paid\": 1699,\n        \"escrowCount\": 6139\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fbeaff2a-e278-4209-a7ba-401918eb166e",
+          "name": "Get wallet controls",
+          "request": {
+            "name": "Get wallet controls",
+            "description": {
+              "content": "Read wallet controls (low-balance alert threshold, spending caps, auto-topup config) for the authenticated caller.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wallet",
+                "controls"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "124e43e0-27d0-48ff-aac8-7a65839371f1",
+              "name": "Current wallet controls",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wallet",
+                    "controls"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"controls\": {\n    \"lowBalanceThresholdCents\": 5135,\n    \"spendingCapPerBountyCents\": 8927,\n    \"spendingCapRolling24hCents\": 4765,\n    \"autoTopupEnabled\": false,\n    \"autoTopupFloorCents\": 5808,\n    \"autoTopupTargetCents\": 1430,\n    \"autoTopupMaxPerDayCents\": 6729\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "604055de-760f-4b6b-be7f-40f0015d4e2a",
+          "name": "Update wallet controls",
+          "request": {
+            "name": "Update wallet controls",
+            "description": {
+              "content": "Update wallet controls. Send only the fields to change; pass null to clear a threshold or cap. When autoTopupEnabled is true, requires target > floor > 0 and maxPerDay >= target - floor.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wallet",
+                "controls"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"lowBalanceThresholdCents\": \"<integer,null>\",\n  \"spendingCapPerBountyCents\": \"<integer,null>\",\n  \"spendingCapRolling24hCents\": \"<integer,null>\",\n  \"autoTopupEnabled\": \"<boolean>\",\n  \"autoTopupFloorCents\": \"<integer,null>\",\n  \"autoTopupTargetCents\": \"<integer,null>\",\n  \"autoTopupMaxPerDayCents\": \"<integer,null>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c5a0e902-0824-4090-bc14-17e904b45dc1",
+              "name": "Updated wallet controls",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wallet",
+                    "controls"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"lowBalanceThresholdCents\": \"<integer,null>\",\n  \"spendingCapPerBountyCents\": \"<integer,null>\",\n  \"spendingCapRolling24hCents\": \"<integer,null>\",\n  \"autoTopupEnabled\": \"<boolean>\",\n  \"autoTopupFloorCents\": \"<integer,null>\",\n  \"autoTopupTargetCents\": \"<integer,null>\",\n  \"autoTopupMaxPerDayCents\": \"<integer,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"controls\": {\n    \"lowBalanceThresholdCents\": 5135,\n    \"spendingCapPerBountyCents\": 8927,\n    \"spendingCapRolling24hCents\": 4765,\n    \"autoTopupEnabled\": false,\n    \"autoTopupFloorCents\": 5808,\n    \"autoTopupTargetCents\": 1430,\n    \"autoTopupMaxPerDayCents\": 6729\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c9da77fb-d417-470b-a8b9-39f62f8a79f7",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wallet",
+                    "controls"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"lowBalanceThresholdCents\": \"<integer,null>\",\n  \"spendingCapPerBountyCents\": \"<integer,null>\",\n  \"spendingCapRolling24hCents\": \"<integer,null>\",\n  \"autoTopupEnabled\": \"<boolean>\",\n  \"autoTopupFloorCents\": \"<integer,null>\",\n  \"autoTopupTargetCents\": \"<integer,null>\",\n  \"autoTopupMaxPerDayCents\": \"<integer,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"error\": \"string\",\n  \"code\": \"validation\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://rentahuman.ai/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "25499943-1fb2-4432-8911-20f2dd53668e",
+    "name": "RentAHuman.ai Bookings Wallet API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API for AI agents to browse, book, and pay humans for physical-world tasks.\n\n## Getting Started\n1. Search for available humans using GET /api/humans\n2. View human profiles with GET /api/humans/{id}\n3. Create a booking with POST /api/bookings\n4. Send payment via preferred method\n5. Confirm payment with PATCH /api/bookings/{id}\n\n## MCP Integration\nFor Claude and other MCP-compatible agents, use our MCP server:\n```json\n{\n  \"mcpServers\": {\n    \"rentahuman\": {\n      \"command\": \"npx\",\n      \"args\": [\"-y\", \"@rentahuman/mcp-server\"]\n    }\n  }\n}\n```\n\n\nContact Support:\n Email: alex@rentahuman.ai",
+      "type": "text/plain"
+    }
+  }
+}
