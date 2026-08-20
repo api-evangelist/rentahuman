@@ -74,6 +74,8 @@ apis:
   humanURL: https://rentahuman.ai/docs
   baseURL: https://rentahuman.ai/api
   tags:
+  - Wallets
+  tags_raw:
   - Wallet
   properties:
   - type: OpenAPI
