@@ -6,79 +6,82 @@ info:
     Find an available human by skill, review the profile, create a booking for a
     physical-world task, confirm it, and read back the booking status.
 sourceDescriptions:
-  - name: rentahuman
-    url: ../openapi/rentahuman-openapi-original.yml
-    type: openapi
+- name: bookingsApi
+  url: ../openapi/rentahuman-bookings-api-openapi.yml
+  type: openapi
+- name: humansApi
+  url: ../openapi/rentahuman-humans-api-openapi.yml
+  type: openapi
 workflows:
-  - workflowId: searchAndBookHuman
-    summary: Search, inspect, book, confirm, and check a human booking.
-    inputs:
-      type: object
-      required: [skill, agentId, agentType, taskTitle, taskDescription, startTime, estimatedHours]
-      properties:
-        skill: { type: string }
-        maxRate: { type: number }
-        agentId: { type: string }
-        agentType: { type: string, enum: [clawdbot, moltbot, openclaw, other] }
-        taskTitle: { type: string }
-        taskDescription: { type: string }
-        startTime: { type: string, format: date-time }
-        estimatedHours: { type: number }
-    steps:
-      - stepId: findHumans
-        operationId: searchHumans
-        parameters:
-          - name: skill
-            in: query
-            value: $inputs.skill
-          - name: maxRate
-            in: query
-            value: $inputs.maxRate
-          - name: limit
-            in: query
-            value: 20
-        outputs:
-          firstHumanId: $response.body#/humans/0/id
-      - stepId: inspectHuman
-        operationId: getHuman
-        parameters:
-          - name: id
-            in: path
-            value: $steps.findHumans.outputs.firstHumanId
-        outputs:
-          humanId: $response.body#/human/id
-      - stepId: bookHuman
-        operationId: createBooking
-        requestBody:
-          contentType: application/json
-          payload:
-            humanId: $steps.inspectHuman.outputs.humanId
-            agentId: $inputs.agentId
-            agentType: $inputs.agentType
-            taskTitle: $inputs.taskTitle
-            taskDescription: $inputs.taskDescription
-            startTime: $inputs.startTime
-            estimatedHours: $inputs.estimatedHours
-        outputs:
-          bookingId: $response.body#/booking/id
-      - stepId: confirmBooking
-        operationId: updateBooking
-        parameters:
-          - name: id
-            in: path
-            value: $steps.bookHuman.outputs.bookingId
-        requestBody:
-          contentType: application/json
-          payload:
-            status: confirmed
-      - stepId: checkBooking
-        operationId: getBooking
-        parameters:
-          - name: id
-            in: path
-            value: $steps.bookHuman.outputs.bookingId
-        outputs:
-          status: $response.body#/booking/status
+- workflowId: searchAndBookHuman
+  summary: Search, inspect, book, confirm, and check a human booking.
+  inputs:
+    type: object
+    required: [skill, agentId, agentType, taskTitle, taskDescription, startTime, estimatedHours]
+    properties:
+      skill: {type: string}
+      maxRate: {type: number}
+      agentId: {type: string}
+      agentType: {type: string, enum: [clawdbot, moltbot, openclaw, other]}
+      taskTitle: {type: string}
+      taskDescription: {type: string}
+      startTime: {type: string, format: date-time}
+      estimatedHours: {type: number}
+  steps:
+  - stepId: findHumans
+    operationId: searchHumans
+    parameters:
+    - name: skill
+      in: query
+      value: $inputs.skill
+    - name: maxRate
+      in: query
+      value: $inputs.maxRate
+    - name: limit
+      in: query
+      value: 20
     outputs:
-      bookingId: $steps.bookHuman.outputs.bookingId
-      status: $steps.checkBooking.outputs.status
+      firstHumanId: $response.body#/humans/0/id
+  - stepId: inspectHuman
+    operationId: getHuman
+    parameters:
+    - name: id
+      in: path
+      value: $steps.findHumans.outputs.firstHumanId
+    outputs:
+      humanId: $response.body#/human/id
+  - stepId: bookHuman
+    operationId: createBooking
+    requestBody:
+      contentType: application/json
+      payload:
+        humanId: $steps.inspectHuman.outputs.humanId
+        agentId: $inputs.agentId
+        agentType: $inputs.agentType
+        taskTitle: $inputs.taskTitle
+        taskDescription: $inputs.taskDescription
+        startTime: $inputs.startTime
+        estimatedHours: $inputs.estimatedHours
+    outputs:
+      bookingId: $response.body#/booking/id
+  - stepId: confirmBooking
+    operationId: updateBooking
+    parameters:
+    - name: id
+      in: path
+      value: $steps.bookHuman.outputs.bookingId
+    requestBody:
+      contentType: application/json
+      payload:
+        status: confirmed
+  - stepId: checkBooking
+    operationId: getBooking
+    parameters:
+    - name: id
+      in: path
+      value: $steps.bookHuman.outputs.bookingId
+    outputs:
+      status: $response.body#/booking/status
+  outputs:
+    bookingId: $steps.bookHuman.outputs.bookingId
+    status: $steps.checkBooking.outputs.status
