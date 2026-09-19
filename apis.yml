@@ -69,6 +69,8 @@ apis:
   humanURL: https://rentahuman.ai/docs
   baseURL: https://rentahuman.ai/api
   tags:
+  - Booking
+  tags_raw:
   - Bookings
   properties:
   - type: OpenAPI
