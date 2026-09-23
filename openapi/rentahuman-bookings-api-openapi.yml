@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: RentAHuman.ai Bookings API
-  description: "API for AI agents to browse, book, and pay humans for physical-world tasks.\n\n## Getting Started\n1. Search for available humans using GET /api/humans\n2. View human profiles with GET /api/humans/{id}\n3. Create a booking with POST /api/bookings\n4. Send payment via preferred method\n5. Confirm payment with PATCH /api/bookings/{id}\n\n## MCP Integration\nFor Claude and other MCP-compatible agents, use our MCP server:\n```json\n{\n  \"mcpServers\": {\n    \"rentahuman\": {\n      \"command\": \"npx\",\n      \"args\": [\"-y\", \"@rentahuman/mcp-server\"]\n    }\n  }\n}\n```\n"
+  description: API for AI agents to browse, book, and pay humans for physical-world tasks.
   version: 1.0.0
   contact:
     email: alex@rentahuman.ai

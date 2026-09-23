@@ -1,9 +1,7 @@
 {
   "provider": "rentahuman",
   "sources": [
-    "rentahuman-bookings-api-openapi.yml",
-    "rentahuman-humans-api-openapi.yml",
-    "rentahuman-wallet-api-openapi.yml"
+    "_original/rentahuman-openapi-original.yml"
   ],
   "outputs": [
     "rentahuman-bookings-api-openapi.yml",
@@ -13,6 +11,26 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "rentahuman-openapi-original.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "rentahuman-openapi-original.yml: tagged paths GET /humans -> Humans",
+    "rentahuman-openapi-original.yml: tagged paths GET /humans/{id} -> Humans",
+    "rentahuman-openapi-original.yml: tagged paths GET /bookings -> Bookings",
+    "rentahuman-openapi-original.yml: tagged paths POST /bookings -> Bookings",
+    "rentahuman-openapi-original.yml: tagged paths GET /bookings/{id} -> Bookings",
+    "rentahuman-openapi-original.yml: tagged paths PATCH /bookings/{id} -> Bookings",
+    "rentahuman-openapi-original.yml: tagged paths GET /wallet/report -> Wallet",
+    "rentahuman-openapi-original.yml: tagged paths GET /wallet/controls -> Wallet",
+    "rentahuman-openapi-original.yml: tagged paths PATCH /wallet/controls -> Wallet",
+    "rentahuman-openapi-original.yml: declared missing tag: Bookings",
+    "rentahuman-openapi-original.yml: declared missing tag: Humans",
+    "rentahuman-openapi-original.yml: declared missing tag: Wallet",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "rentahuman-bookings-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "rentahuman-humans-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "rentahuman-wallet-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
