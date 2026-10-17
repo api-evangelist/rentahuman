@@ -103,43 +103,6 @@ paths:
       - Wallet
 components:
   schemas:
-    WalletControls:
-      type: object
-      description: Poster-set wallet alert, spending-cap, and auto-topup configuration. Cent amounts are non-negative integers up to 10000000 ($100k) or null to clear.
-      properties:
-        lowBalanceThresholdCents:
-          type:
-          - integer
-          - 'null'
-          description: Send a low-balance email when balance crosses below this. Null disables.
-        spendingCapPerBountyCents:
-          type:
-          - integer
-          - 'null'
-          description: Max cumulative wallet spend toward a single bounty. Null disables.
-        spendingCapRolling24hCents:
-          type:
-          - integer
-          - 'null'
-          description: Max wallet spend to workers per rolling 24 hours. Null disables.
-        autoTopupEnabled:
-          type: boolean
-          description: Opt-in auto-topup toggle.
-        autoTopupFloorCents:
-          type:
-          - integer
-          - 'null'
-          description: Trigger a top-up when balance crosses below this floor.
-        autoTopupTargetCents:
-          type:
-          - integer
-          - 'null'
-          description: Top up balance back to this target.
-        autoTopupMaxPerDayCents:
-          type:
-          - integer
-          - 'null'
-          description: Daily cap on total auto-topup charged.
     WalletReport:
       type: object
       properties:
@@ -203,3 +166,40 @@ components:
                 type: integer
               escrowCount:
                 type: integer
+    WalletControls:
+      type: object
+      description: Poster-set wallet alert, spending-cap, and auto-topup configuration. Cent amounts are non-negative integers up to 10000000 ($100k) or null to clear.
+      properties:
+        lowBalanceThresholdCents:
+          type:
+          - integer
+          - 'null'
+          description: Send a low-balance email when balance crosses below this. Null disables.
+        spendingCapPerBountyCents:
+          type:
+          - integer
+          - 'null'
+          description: Max cumulative wallet spend toward a single bounty. Null disables.
+        spendingCapRolling24hCents:
+          type:
+          - integer
+          - 'null'
+          description: Max wallet spend to workers per rolling 24 hours. Null disables.
+        autoTopupEnabled:
+          type: boolean
+          description: Opt-in auto-topup toggle.
+        autoTopupFloorCents:
+          type:
+          - integer
+          - 'null'
+          description: Trigger a top-up when balance crosses below this floor.
+        autoTopupTargetCents:
+          type:
+          - integer
+          - 'null'
+          description: Top up balance back to this target.
+        autoTopupMaxPerDayCents:
+          type:
+          - integer
+          - 'null'
+          description: Daily cap on total auto-topup charged.
