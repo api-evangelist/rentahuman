@@ -23,20 +23,259 @@ server:
   - custom MCP agents
 tools:
 - name: search_humans
-  description: Discover available talent by skill, location, availability, and rate.
+  description: Search for available humans by skill or rate; location ranks local humans first. Returns
+    public profiles with a profileUrl.
   source_operation: openapi/rentahuman-openapi-original.yml#searchHumans
-- name: start_conversation
-  description: Initiate messaging with a human.
+- name: browse_taste_humans
+  description: Browse humans with creative/taste skills (design, visual art, music, photo & video, fashion
+    & style, writing & performance), curated for work needing human aesthetic judgment.
+- name: create_taste_run
+  description: Pay a panel of vetted creative humans to compare 2-6 linked artifacts and answer an aesthetic
+    judgment question. Optional requirements can filter by creative experience, profile country, self-declared
+    gender, and verified ID, and can require a portfolio upload or recorded video response. Set acceptAllApplicants
+    to true to auto-accept every eligible applicant instead of vetting creative fit. Requires wallet funds
+    and RENTAHUMAN_API_KEY. Always pass a stable idempotencyKey when retrying; if omitted, the tool derives
+    one deterministically from the parameters so retries cannot double-charge. If the wallet is short,
+    use get_wallet_balance and deposit_wallet.
+- name: get_taste_run
+  description: Get a taste run status and, once closed, its summary, vote tally, winner, representative
+    quotes, and degraded flag. While it is still running, poll again later or subscribe to run.report_ready
+    webhooks.
+- name: create_qa_run_template
+  description: Create a one-time or recurring human QA template for a target URL. A confirmed website
+    access failure saves a paused draft with websiteAccess details; correct targetUrl and resume through
+    the template API. Inconclusive checks allow launch. Every launch rechecks basic reachability, not
+    the test steps. Set cadence to custom with cadenceDays from 1-30 for a custom interval. Always pass
+    a stable idempotencyKey when retrying so CI reruns cannot create duplicate paid runs. Use testerStartMessage
+    for private test-only setup details sent to every tester after acceptance. Optional instructionMedia
+    (up to 6 annotated screenshots/clips already uploaded to qa-templates/ storage) and checklist (up
+    to 10 owner-defined steps, each graded as a review criterion with optional per-item media) enrich
+    the tester assignment. Use applicantScreening.liveVideoRequired, applicantScreening.linkedinRequired,
+    and applicantScreening.resumeRequired to require application evidence; put the criteria to screen
+    that evidence against in requiredCredentials and instructions. Video runs require screen and microphone
+    recording with narrated errors and improvement ideas; completed reports include transcript-backed
+    video timestamps. The account wallet funds each run; a low balance warning means the template exists
+    but needs deposit_wallet before its run can proceed. Requires RENTAHUMAN_API_KEY.
+- name: get_qa_run
+  description: Get an owned autonomous QA run with its status, budget totals, report, and finding diff.
+    The managed QA agent handles applicant selection, result review, revisions, and payout. Requires RENTAHUMAN_API_KEY.
+- name: list_qa_runs
+  description: List up to 100 owned autonomous QA runs newest first, optionally filtered by templateId.
+    List results include status, budget totals, agent-reviewed progress, and hasReport; use get_qa_run
+    for the completed report. Requires RENTAHUMAN_API_KEY.
+- name: stop_qa_run
+  description: Stop one owned active QA run without pausing its recurring schedule. New testers are rejected;
+    assigned testers keep their deadlines and approved work is still paid. Unused and failed-seat funds
+    are refunded after active work, revisions, payouts, and disputes settle. Run history and evidence
+    are retained. This is destructive and requires RENTAHUMAN_API_KEY.
+- name: create_negotiation
+  description: 'Retired for new orders: it now returns karen_orders_are_bounties and creates nothing.
+    To hire a human negotiator (RentAKaren), call create_bounty with karen: true, priceType "hourly" (at
+    least $5/h, $10/h with an English languageProficiencyRequirement), a deadline at least 4 days out,
+    a general public title and description, and every personal detail (names, numbers, the full story)
+    in startInstructions. Only approved Karens can apply, and they record every call. The other negotiation
+    tools still manage negotiations created before this change.'
+- name: get_negotiation
+  description: 'Get one of your negotiations: status, brief, authorization, objectives with submitted
+    evidence, logged and approved minutes, escrow breakdown, assigned negotiator, recorded calls (date,
+    duration, outcome, negotiator notes, a 2–3 line summary and the full transcript; transcriptStatus
+    is transcribing until it is ready), and settlement once settled. Calls are only recorded when authorization.recordingAllowed
+    is true. Use it to find objective IDs for approve_objective. Requires RENTAHUMAN_API_KEY.'
+- name: list_negotiations
+  description: List the negotiations you have posted with status, rate, cap, logged and approved minutes,
+    escrowed amount, service fee and total wallet charge, and objective progress. Requires RENTAHUMAN_API_KEY.
+- name: fund_negotiation
+  description: Retry funding a pending_funding negotiation's escrow from your wallet after a top-up. Returns
+    the shortfall when the wallet still cannot cover it. If the wallet is short, top it up (get_wallet_balance
+    and deposit_wallet where those tools exist; otherwise the person adds funds at https://rentahuman.ai/account/wallet),
+    then call fund_negotiation. Idempotent once funded. Requires RENTAHUMAN_API_KEY.
+- name: list_negotiation_applicants
+  description: 'List the negotiators who applied to your negotiation, newest first: applicationId, name,
+    status (pending, accepted, rejected…), cover letter and when they applied. Then call respond_to_applicant
+    to hire one. Requires RENTAHUMAN_API_KEY.'
+- name: respond_to_applicant
+  description: Accept or reject an applicant from list_negotiation_applicants. Accepting hires them as
+    your negotiator from the funded escrow (the negotiation must be funded; nothing more is charged) and
+    opens a conversation for message_negotiator; a negotiation has one negotiator. Rejecting is final
+    for that application. message is an optional note shown to the applicant. Requires RENTAHUMAN_API_KEY.
+- name: message_negotiator
+  description: Send a message to the negotiator assigned to your negotiation, for example to answer a
+    question or adjust instructions within your authorization. Requires RENTAHUMAN_API_KEY.
+- name: approve_hours
+  description: Approve every time entry your negotiator has logged so far. Approved minutes are paid at
+    settlement at the hourly rate, never beyond the cap; unapproved minutes are not paid. Idempotent.
+    Requires RENTAHUMAN_API_KEY.
+- name: approve_objective
+  description: Approve an objective the negotiator marked as met, so its flat bonus is paid at settlement.
+    Review the evidence from get_negotiation first. Pass rejectReason instead to reject the evidence;
+    the negotiator can resubmit, and a bonus that is never approved is refunded at settlement. Approval
+    is idempotent. Requires RENTAHUMAN_API_KEY.
+- name: settle_negotiation
+  description: 'Finish a negotiation: approved hours and approved objective bonuses are released to the
+    negotiator from escrow, and everything unused is refunded to your wallet. Approve hours and objectives
+    first; anything unapproved at settlement is not paid. Irreversible, but safe to retry. Requires RENTAHUMAN_API_KEY.'
+- name: cancel_negotiation
+  description: Cancel before a negotiator is hired; the whole escrow returns to the wallet. Fails once
+    someone is hired. Requires RENTAHUMAN_API_KEY.
 - name: create_bounty
-  description: Post a task with description, price, and applicant review (supports dryRun=true).
-- name: rent_human
-  description: One-step rental of a specific human.
+  description: 'IMPORTANT: A live create can immediately fund the bounty from the account''s wallet. Always
+    call with dryRun=true first, show the preview and fundingTotal to the operator, and only after their
+    explicit approval call again with confirm=true. Create a one-shot task bounty that humans apply to.
+    Dry-run preview.fundingTotal is the total before any wallet balance is applied; show it to the operator
+    before posting. Live pending_deposit responses include deposit_url and checkout_total, the exact hosted
+    charge after wallet balance. The escrow-funded pool total (spots × fixed price, or spots × hourly
+    price × estimated hours) cannot exceed $10,000, and in-person bounties inside a configured minimum-pay
+    area must meet that area''s hourly minimum (fixed prices are divided by estimatedHours). Pass `idempotencyKey`
+    to make retries safe: a replayed key returns the original result instead of a duplicate. Per-seat
+    clocks start at acceptance: the worker confirms within the fixed 2-hour window unless skipAcceptanceConfirmation
+    is true, then must start within startWindowMinutes and submit within completionWindowHours (from confirmation,
+    or from scheduledStartAt when set), or the seat can be released and reopened. For appearance-based
+    work (sign holding, UGC, sponsored posts, on-camera video, promo/GTM appearances), include one required
+    live_video applicationDetails field asking the applicant to explain in two sentences why they are
+    a good fit. Do not ask applicants for passwords, OTP/2FA codes, API keys, private keys, seed phrases,
+    government IDs, bank/card details, exact home addresses, dates of birth, or other sensitive personal
+    information. AI screening (autoAccept) is off by default. Pass autoAccept: true to have AI accept
+    qualified applicants and reject clear mismatches with a reason; applications it cannot decide stay
+    pending for you to review. aiManaged: true turns on AI screening (autoAccept) and AI review (aiGrading);
+    a photo, video or document upload becomes the evidence type. RentAHuman or you approve payment.'
+- name: list_bounties
+  description: List bounties. Filter by status, category, skill, price range. Set mine=true to list bounties
+    owned by the authenticated account, including web UI posts.
+- name: get_bounty
+  description: Get detailed information about a specific bounty, including full description, requirements,
+    completionCriteria, evidenceTypes, evidenceCriteria, and liveCaptureRequirement. Inspect those criteria
+    before reviewing evidence. Automated submission findings are advisory and never approve work or release
+    payment.
+- name: fund_bounty
+  description: 'Fund an existing pending_deposit bounty. Always call with dryRun=true first: the preview
+    returns the amount, service fee, total, current wallet balance, whether the wallet covers the total
+    (walletCoversTotal), and any shortfall without charging anything. Show it to the account owner, and
+    only after their explicit approval call again with confirm=true. A confirmed call may reserve available
+    wallet funds immediately. If the wallet cannot cover the total, the response returns status requires_payment
+    with deposit_url and checkout_total for the account owner to complete in hosted checkout. It may also
+    return mppPayment, a single-use MPP card payment that credits the wallet and funds this bounty in
+    one step; pay the checkout or mppPayment, never both. Reusing the tool returns an existing open checkout
+    instead of charging twice. Unknown arguments are rejected. A bounty that is no longer pending_deposit
+    returns 400. If the response includes setupUrl, the account owner must add their country there, then
+    retry. Owner only.'
+- name: update_bounty
+  description: 'Update one of your ordinary one-shot bounties; only the fields you pass change. You can
+    edit the listing text, price, application deadline, location and supportedCountries, screening settings,
+    lifecycleMessages, seats, per-seat clocks, schedule, AI screening (autoAccept), and AI review of submissions
+    (aiGrading). Status ''paused'' stops new applications and outreach, ''open'' resumes, and ''closed''
+    (sent on its own with no other changes) closes an unassigned bounty and returns its unused funding;
+    ''completed'' and ''paid'' are system-managed and cannot be set. Use cancel_bounty to cancel. An edit
+    cannot grow an escrow-funded pool above $10,000. On a wallet-funded bounty, a price raise or added
+    seats first returns wallet_impact_confirmation_required with a cost preview and nothing charged: show
+    the operator the cost, wallet balance before and after, and hiredSeatsRepriced, and only after they
+    approve repeat the call with walletImpactAcknowledged: true and walletImpactCents from the preview.
+    A raise after hiring reprices every hired worker. With aiGrading on, RentAHuman review may approve
+    a submission and pay the worker for you; you can still decide first with review_submission. Clock
+    changes (completionWindowHours, startWindowMinutes, responseWindowHours, autoExpireGhosts) apply only
+    to seats confirmed after the edit; moving scheduledStartAt later pushes back confirmed workers'' deadlines
+    and never brings one forward. The 2-hour seat-confirmation window is fixed. requiredLinks, completionQuestions,
+    and adding or switching liveCaptureRequirement are refused once applications exist; removing live
+    capture is always allowed. AI-managed bounties allow only task-content and deadline edits; QA and
+    taste runs and ongoing-bounty settings are not editable here.'
+- name: cancel_bounty
+  description: 'Cancel one of your bounties by ID: pending and hired applications are closed and unreleased
+    funding is refunded (wallet funds go back to your wallet). The response reports rejectedApplications
+    and cancelledEscrows. A canonical reason is required; details are required only for other. The reason
+    and optional details are private and are never shown to workers. Completed, paid or closed bounties
+    cannot be cancelled. If work was delivered or payment released, or a dispute or review is open, it
+    returns 409 with an error_code and a message saying what to do (for delivered work, use open_dispute).
+    Safe to retry; a repeat returns alreadyCancelled: true.'
+- name: get_bounty_applications
+  description: 'View applications to one of your bounties; while `hasMore` is true, pass the response''s
+    `nextCursor` as `cursor`. Applications come best match first (accepted first, rejected last, ties
+    newest first). `completedTasksCount` and `totalEarnedCents` (USD cents released to them) are their
+    RentAHuman track record; 0 means new. Each application includes the cover letter, availability, `isBlockedByOwner`
+    and `isPreferredByOwner` (change them with `block_human` or `prefer_human` and the `humanId`; blocking
+    is future-only and never removes an accepted worker), and `reviewSummary` (`averageRating` 1-5 or
+    null, `reviewCount`, up to 3 `recentReviews`). A null averageRating with reviewCount 0 means no history,
+    not a low score; weigh reviewSummary with `identitySignals` before accept_application. With a `languageProficiencyRequirement`,
+    applications include `languageProficiency` with `status` passed, pending (still being scored), or
+    failed, plus the scored `cefr` once scored. Hired seats (accepted, or expired with an escrow trace)
+    include `jobOverview`, null for other applicants. Its `overallState` lets escrow state win over stale
+    submission or chat state: released > resolved > refunded > disputed or rejected_disputed > seat_released
+    > cancelled > the evidence state (awaiting_confirmation, awaiting_start, in_progress, evidence_in_review,
+    changes_requested, redo_overdue, approved_awaiting_release, completed). `nextAction.kind` is the single
+    next step: review_evidence, release_payment, pay_now, fund_seat, reject_or_wait, and view_dispute
+    are yours (`actorIsOwner: true`); wait_for_confirmation, wait_for_start, wait_for_evidence, and wait_for_redo
+    mean the worker moves next; none means settled; `nextDeadline`, `missingEvidence`, and `money` give
+    the details. `isTeamReview: true` marks a disputed seat the platform team is reviewing because the
+    4-day poster review period lapsed (`teamReviewReopenUsed: true` once you used your single reopen);
+    overallState and nextAction are unchanged.'
 - name: accept_application
-  description: Hire an applicant.
-- name: confirm_delivery
-  description: Mark submitted work complete.
-- name: release_payment
-  description: Disburse escrowed funds to the human.
+  description: 'Accept a human''s application for your bounty. For an escrow-funded seat, accepting takes
+    the seat''s payment from the bounty''s funding and holds it in escrow until you release it; the worker
+    is not paid yet. If the response''s next_steps say payment comes after the work is completed, follow
+    that instruction instead. For multi-person bounties, accept each applicant separately. If the seat
+    needs funding and none covers it, this returns 402 and nothing is charged: for `escrow_not_funded`,
+    fund this application with create_escrow_checkout and retry; `pool_drained` means the bounty''s funding
+    has no seat left. An application whose seat expired because the worker did not confirm in time can
+    be accepted again. Other pending applications are kept even when every seat fills — a filled seat
+    can still be released and refilled — and are auto-rejected only once every seat''s escrow is settled
+    (released/paid). Pass optional `idempotencyKey` to make this safe to retry (a replayed key returns
+    the original result instead of duplicating). Check the applicant''s `reviewSummary` from get_bounty_applications
+    before accepting; a null averageRating means no history, not a bad record. On bounties with a `languageProficiencyRequirement`,
+    accepting an applicant whose current scored level does not meet the bounty''s current threshold returns
+    409 `language_proficiency_unsatisfied`.'
+- name: reject_application
+  description: Reject a pending application to your bounty. The optional `response` is sent to the applicant
+    as the reason.
+- name: get_bounty_submissions
+  description: List the evidence submissions workers have submitted for one of your bounties. Each finalized
+    submission includes advisory automated checks with `checkCoverage`, a neutral `recommendation`, structured
+    `findings`, and per-file check results. A recommendation does not decide whether the work is valid
+    and does not release or block payment. Filter by review status (pending_review, approved, rejected,
+    redo_requested). Owner only.
+- name: get_submission
+  description: Get a single evidence submission for one of your bounties, including its uploaded files
+    and advisory automated-check report. Before deciding, use get_bounty for the completion and evidence
+    criteria and inspect every uploaded file directly. If your host cannot open a file type or URL, disclose
+    that limitation instead of deciding from metadata or automated findings. Owner only.
+- name: review_submission
+  description: 'Record a decision on a worker''s evidence submission. Only call after the user explicitly
+    chooses a decision or explicitly delegates criteria-based evidence decisions to you. First call get_bounty
+    and get_submission, compare the stated completion/evidence criteria with every uploaded file, and
+    do not decide if you cannot inspect a file. `action` is ''approve'', ''reject'', or ''request_redo'';
+    `response` is required for reject and request_redo. Available while the job is evidence_in_review
+    (the worker marked the task complete with evidence); other states return HTTP 409 job_state_conflict.
+    Successful responses include `jobState` (state, allowed next actions, `attempt` {used, max}, `redoDueAt`,
+    `isRedoOverdue`), and so do 409 refusals about the evidence state when it can be read; other 409s
+    do not. request_redo is capped at 3 cycles per job, after which HTTP 409 redo_limit_reached leaves
+    only approve or reject. request_redo may set a redo deadline with `redoWindowMinutes` (15-10080) or
+    an absolute `redoDueAt`; the worker''s resubmission appends to the earlier evidence and every deliverable
+    the bounty declared (each evidence type and each required completion question) must be present before
+    it is accepted. While the deadline has not passed, reject from changes_requested returns HTTP 409
+    redo_deadline_pending; after it passes (`isRedoOverdue: true`) reject becomes available there too.
+    Pass `expectedState` (the jobState you last saw) so a worker resubmitting in the meantime turns your
+    reject into HTTP 409 job_state_conflict instead of landing on the new evidence. reject is terminal
+    for the evidence loop and immediately files a dispute on the escrow; the worker cannot resubmit. If
+    reject returns HTTP 409 dispute_unavailable, retry, or use request_redo instead. Automated `recommendation`
+    and findings are advisory only and must never be treated as the verdict. This tool does not move money:
+    after approve, use release_payment with acknowledgeRelease: true. Owner only.'
+- name: report_support_issue
+  description: Report a RentAHuman platform error or support issue to the support team. The authenticated
+    account and agent identity are attached automatically, and the report is added to the same support
+    queue used by the web app. Use this for platform failures, unexpected API responses, billing issues,
+    or workflows that need human support. Requires RENTAHUMAN_API_KEY.
+- name: get_human_profile
+  description: Get detailed profile for a specific human by their profile ID.
+- name: search_bounties
+  description: Search for available bounties/tasks that humans can apply to.
+- name: get_conversation
+  description: 'Get a conversation and its first page of messages: up to 100, oldest first. When `pagination.hasMore`
+    is true the thread is longer, and newer messages are not included.'
+- name: list_conversations
+  description: List all conversations with humans.
+- name: send_message
+  description: Send a message in a bounty, service-booking, feedback, dispute, or platform-support conversation.
+    Legacy direct threads are read-only, and archived conversations cannot receive messages. Keep contact
+    details, links, and payment on RentAHuman. Pass optional `idempotencyKey` to make this safe to retry
+    (a replayed key returns the original result instead of duplicating). Hosted connections send text
+    messages only; messageType and metadata are ignored.
 deployment:
   mode: remote
   endpoint: https://rentahuman.ai/api/mcp
@@ -78,3 +317,4 @@ tool_quality:
   scored: false
   note: Facts from the saved tools/list capture (mcp_tool_quality.py); recorded, not scored. Checks learned
     from Glimind's agent-readiness audit.
+tools_count: 37
