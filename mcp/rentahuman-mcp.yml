@@ -286,13 +286,13 @@ deployment:
   source: catalog MCP census
 tool_quality:
   tool_count: 37
-  tokens_total: 28125
+  tokens_total: 28042
   tokens_per_tool_median: 237
   heavy_tools:
   - name: create_bounty
-    tokens: 7695
+    tokens: 7549
   - name: update_bounty
-    tokens: 7221
+    tokens: 7284
   - name: create_qa_run_template
     tokens: 1819
   - name: create_taste_run
