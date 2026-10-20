@@ -45,3 +45,36 @@ deployment:
   tools: 12
   checked: '2026-08-12'
   source: catalog MCP census
+tool_quality:
+  tool_count: 37
+  tokens_total: 28125
+  tokens_per_tool_median: 237
+  heavy_tools:
+  - name: create_bounty
+    tokens: 7695
+  - name: update_bounty
+    tokens: 7221
+  - name: create_qa_run_template
+    tokens: 1819
+  - name: create_taste_run
+    tokens: 1212
+  heavy_tool_count: 4
+  params_total: 239
+  params_undescribed: 6
+  params_described_pct: 97.5
+  tools_with_undescribed_params: 4
+  tools_annotated: 37
+  annotated_pct: 100.0
+  state_changing_unhinted: []
+  tools_missing_schema: 0
+  short_descriptions: 0
+  duplicate_descriptions: 0
+  duplicate_names: 0
+  nonportable_names: []
+  output_schema_count: 0
+  token_estimate: chars/3.6 of each compact tool definition
+  source: mcp/rentahuman-mcp-tools.json
+  measured: '2026-10-20'
+  scored: false
+  note: Facts from the saved tools/list capture (mcp_tool_quality.py); recorded, not scored. Checks learned
+    from Glimind's agent-readiness audit.
